@@ -136,6 +136,84 @@ export default function App() {
     return setSubsTributacao("NÃO")
   }
 
+  function validarPedido() {
+    const lista = []
+
+    if (cnpj === "") {
+      lista.push("CNPJ")
+    }
+    if (razaoSocial === "") {
+      lista.push("Razão Social")
+    }
+    if (cnaeCodigo === "") {
+      lista.push("CNAE Codigo")
+    }
+    if (inscEstadual === "") {
+      lista.push("Inscrição Estadual")
+    }
+    if (logradouro === "") {
+      lista.push("Logradouro")
+    }
+    if (bairro === "") {
+      lista.push("Bairro")
+    }
+    if (cidade === "") {
+      lista.push("Cidade")
+    }
+    if (estado === "") {
+      lista.push("Estado")
+    }
+    if (cep === "") {
+      lista.push("Cep")
+    }
+    if (telefone === "") {
+      lista.push("Telefone Empresa")
+    }
+    if (cnpjEmail === "") {
+      lista.push("Email Empresa")
+    }
+    if (frete === "") {
+      lista.push("Frete")
+    }
+    if (condiPagamento === "") {
+      lista.push("Condição de Pagamento")
+    }
+    if (tipoVenda === "") {
+      lista.push("Tipo de Venda")
+    }
+    if (canal === "") {
+      lista.push("Canal")
+    }
+    if (tributacao === "") {
+      lista.push("Tributação")
+    }
+    if (subsTributacao === "") {
+      lista.push("Substituição Tributaria")
+    }
+    if (nPedido === "") {
+      lista.push("Numero do Pedido")
+    }
+    if (dataComissao === "") {
+      lista.push("Data do Pedido")
+    }
+    if (tabela === "") {
+      lista.push("Tabela do Pedido")
+    }
+    if (codRepre === "") {
+      lista.push("Codigo Representante")
+    }
+    if (digitadoPor === "") {
+      lista.push("Digitado Por")
+    }
+
+    if (!lista.length) {
+      window.print()
+    } else {
+      alert(`Estes campos são obrigatórios: \n ${lista.map(e => "\n" + e)}`)
+    }
+
+  }
+
   useEffect(() => {
     temST()
   }, [estado])
@@ -144,7 +222,7 @@ export default function App() {
     <>
       {modalAviso?.modal && <Avisar aviso={modalAviso?.aviso} func={modalAviso?.func} setModal={setModalAviso} />}
       {modal && <ModalProdutos carrinho={carrinho} setCarrinho={setCarrinho} modal={modal} setModal={setModal} />}
-      <main className="p-10 text-xs w-[1050px]">
+      <main className="p-10 text-xs w-[1050px] print:scale-90">
 
         {/* CADASTRO */}
 
@@ -301,11 +379,7 @@ export default function App() {
 
         {modalButtons && <div className="flex justify-center items-center m-10 gap-5 print:hidden">
           <button className="bg-green-300 p-4 border-black border-2 font-bold text-lg" onClick={() => setModal(!modal)}>Adicionar Produtos</button>
-          <button className="bg-green-300 p-4 border-black border-2 font-bold text-lg" onClick={async () => {
-            setModalButtons(false)
-            await window.print()
-            setModalButtons(true)
-          }}>Imprimir</button>
+          <button className="bg-green-300 p-4 border-black border-2 font-bold text-lg" onClick={async () => validarPedido()}>Imprimir</button>
         </div>}
 
         {/* TABELA DE PRODUTOS */}
